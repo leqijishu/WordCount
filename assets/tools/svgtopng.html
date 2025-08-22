@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG 转 PNG</title>
+</head>
+
+<body>
+    <input id="file" type="file" accept="image/svg+xml">
+    <canvas id="c" style="display:none;"></canvas>
+    <script>
+        file.onchange = e => {
+            const fr = new FileReader();
+            fr.onload = () => {
+                const img = new Image();
+                img.onload = () => {
+                    const c = document.getElementById('c');
+                    c.width = c.height = 128;
+                    const ctx = c.getContext('2d');
+                    ctx.drawImage(img, 0, 0, 128, 128);
+                    c.toBlob(blob => {
+                        const a = document.createElement('a');
+                        a.href = URL.createObjectURL(blob);
+                        a.download = 'icon-128.png';
+                        a.click();
+                    });
+                };
+                img.src = fr.result;
+            };
+            fr.readAsDataURL(e.target.files[0]);
+        };
+    </script>
+
+</body>
+
+</html>

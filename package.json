@@ -3,6 +3,7 @@
   "displayName": "Words Count",
   "description": "文档字数统计(Document Words Count)",
   "version": "1.0.0",
+  "icon": "assets/images/icon.png",
   "engines": {
     "vscode": "^1.103.0"
   },
@@ -37,5 +38,9 @@
     "typescript": "^5.9.2",
     "@vscode/test-cli": "^0.0.11",
     "@vscode/test-electron": "^2.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leqijishu/WordsCount.git"
   }
 }
