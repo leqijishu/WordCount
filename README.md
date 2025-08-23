@@ -1,13 +1,14 @@
 # Words Count
-VS Code扩展，统计文档字数
+VS Code扩展，统计文档字数<br />
 An extension for VS Code that counts words in your document
 
-效果如下图所示
+效果如下图所示<br />
 The effect is shown in the image below
 
 ![preview](./assets/snapshots/wordscount.png)
 
-# 克隆仓库 & 编译 / clone repository & build
+<h1>克隆仓库 & 编译</h1>
+<h1>Clone & Build</h1>
 
 ```
 git clone https://github.com/leqijishu/WordsCount.git
