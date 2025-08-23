@@ -13,7 +13,7 @@ The effect is shown in the image below
 Clone & Build
 </h1>
 
-```
+```bash
 git clone https://github.com/leqijishu/WordsCount.git
 cd WordsCount
 npm ci          # 或 npm install
