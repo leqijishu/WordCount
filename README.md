@@ -7,8 +7,11 @@ The effect is shown in the image below
 
 ![preview](./assets/snapshots/wordscount.png)
 
-<h1>克隆仓库 & 编译</h1>
-<h1>Clone & Build</h1>
+<h1>
+克隆 & 编译
+<br />
+Clone & Build
+</h1>
 
 ```
 git clone https://github.com/leqijishu/WordsCount.git
