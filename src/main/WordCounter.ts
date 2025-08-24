@@ -24,27 +24,44 @@
  * Project: https://github.com/leqijishu/WordsCount.git
  */
 
-import * as vscode from 'vscode';
-import { StatusBarManager } from "./main/StatusBarManager";
+export class WordCounter {
+    clean(text: string): string {
+        return text
+            .replace(/^#.*$/gm, '')
+            .replace(/\r?\n|\r/g, ' ')
+            .replace(/\s+/g, '')
+            .trim();
+    }
 
-let manager: StatusBarManager;
+    public count(text: string): number {
+        const cleaned = this.clean(text);
 
-export function activate(context: vscode.ExtensionContext) {
-	manager = new StatusBarManager();
+        const cjkRegex = new RegExp([
+            '[',
+            '\\p{Script=Han}',
+            '\\p{Script=Hiragana}',
+            '\\p{Script=Katakana}',
+            '\\p{Script=Hangul}',
+            '\\u3000-\u303F',
+            '\\uFF00-\uFFEF',
+            '\\u2018\u2019\u201C\u201D',
+            ']',
+        ].join(''),
+            'gu'
+        );
+        const cjk = (cleaned.match(cjkRegex) || []).length;
 
-	const disposables = [
-		vscode.window.onDidChangeActiveTextEditor(e => manager.refresh(e)),
-		vscode.workspace.onDidChangeTextDocument(() =>
-			manager.refresh(vscode.window.activeTextEditor)
-		),
-		manager
-	];
+        const enRegex = new RegExp(
+            '[' +
+            'A-Za-z0-9' +
+            '!@#$%^&*()_+\\-=' +
+            '{}\
+            $$\$$ ;:\'"\\\\|,.<>/?' +
+            ']',
+            'g'
+        );
+        const enWords = (cleaned.match(enRegex) || []).length;
 
-	context.subscriptions.push(...disposables);
-
-	manager.refresh(vscode.window.activeTextEditor);
-}
-
-export function deactivate() {
-	manager?.dispose();
+        return cjk + enWords;
+    }
 }

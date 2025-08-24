@@ -25,26 +25,28 @@
  */
 
 import * as vscode from 'vscode';
-import { StatusBarManager } from "./main/StatusBarManager";
+import { WordCounter } from "./WordCounter";
 
-let manager: StatusBarManager;
+export class StatusBarManager {
+    private readonly _item: vscode.StatusBarItem;
+    private readonly _counter = new WordCounter();
 
-export function activate(context: vscode.ExtensionContext) {
-	manager = new StatusBarManager();
+    constructor() {
+        this._item = vscode.window.createStatusBarItem(
+            vscode.StatusBarAlignment.Right,
+            100
+        );
+        this._item.command = 'wordsCount.update';
+        this._item.text = '$(book) 0';
+        this._item.show();
+    }
+    
+    public refresh(editor?: vscode.TextEditor): void {
+        const count = editor ? this._counter.count(editor.document.getText()) : 0;
+        this._item.text = `$(book) ${count}`;
+    }
 
-	const disposables = [
-		vscode.window.onDidChangeActiveTextEditor(e => manager.refresh(e)),
-		vscode.workspace.onDidChangeTextDocument(() =>
-			manager.refresh(vscode.window.activeTextEditor)
-		),
-		manager
-	];
-
-	context.subscriptions.push(...disposables);
-
-	manager.refresh(vscode.window.activeTextEditor);
-}
-
-export function deactivate() {
-	manager?.dispose();
+    public dispose(): void {
+        this._item.dispose();
+    }
 }
