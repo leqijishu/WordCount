@@ -1,6 +1,6 @@
 {
-  "name": "wordscount",
-  "displayName": "Words Count",
+  "name": "wordcount",
+  "displayName": "Word Count",
   "description": "实时统计文档字数并显示在状态栏。(Count words in the document and display the result in the status bar.)",
   "version": "1.2.0",
   "publisher": "leqijishu",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/leqijishu/WordsCount.git"
+    "url": "https://github.com/leqijishu/WordCount.git"
   },
   "license": "MIT",
   "engines": {
@@ -25,15 +25,11 @@
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      {
-        "command": "wordsCount.count",
-        "title": "Count Words"
-      }
     ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "build": "node -e \"require('fs').mkdirSync('./dist', {recursive: true})\" &&  \"require('child_process').execSync(`vsce package -o ./dist/wordscount-${require('./package.json').version}.vsix`, {stdio:'inherit'})\"",
+    "build": "node -e \"require('fs').mkdirSync('./dist', {recursive: true})\" &&  \"require('child_process').execSync(`vsce package -o ./dist/wordcount-${require('./package.json').version}.vsix`, {stdio:'inherit'})\"",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",

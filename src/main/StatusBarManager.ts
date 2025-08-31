@@ -36,7 +36,6 @@ export class StatusBarManager {
             vscode.StatusBarAlignment.Right,
             100
         );
-        this._item.command = 'wordsCount.update';
         this._item.text = '$(book) 0';
         this._item.show();
     }
