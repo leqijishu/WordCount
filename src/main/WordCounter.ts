@@ -26,42 +26,22 @@
 
 export class WordCounter {
     clean(text: string): string {
-        return text
-            .replace(/^#.*$/gm, '')
-            .replace(/\r?\n|\r/g, ' ')
-            .replace(/\s+/g, '')
-            .trim();
+        return text.replace(/^#.*$/gm, '').trim();
     }
 
     public count(text: string): number {
         const cleaned = this.clean(text);
+        if (cleaned.length === 0) {
+            return 0;
+        }
 
-        const cjkRegex = new RegExp([
-            '[',
-            '\\p{Script=Han}',
-            '\\p{Script=Hiragana}',
-            '\\p{Script=Katakana}',
-            '\\p{Script=Hangul}',
-            '\\u3000-\u303F',
-            '\\uFF00-\uFFEF',
-            '\\u2018\u2019\u201C\u201D',
-            ']',
-        ].join(''),
-            'gu'
-        );
-        const cjk = (cleaned.match(cjkRegex) || []).length;
-
-        const enRegex = new RegExp(
-            '[' +
-            'A-Za-z0-9' +
-            '!@#$%^&*()_+\\-=' +
-            '{}\
-            $$\$$ ;:\'"\\\\|,.<>/?' +
-            ']',
-            'g'
-        );
+        const enRegex = new RegExp(/\b[A-Za-z0-9]+['-_]?[A-Za-z0-9]*\b/g);
         const enWords = (cleaned.match(enRegex) || []).length;
+        const cjkRegex = new RegExp(/[\u4E00-\u9FFF\u3000-\u303F\uFF01-\uFF65\u2010-\u2013\u2016-\u205F\uFE10-\uFE4F\u00B7\u2E80-\u2EFF]/gu);
+        const cjkWords = (cleaned.match(cjkRegex) || []).length;
+        const dashRegex = new RegExp(/——/g);
+        const dashWords = (cleaned.match(dashRegex) || []).length;
 
-        return cjk + enWords;
+        return cjkWords + enWords + dashWords;
     }
 }
