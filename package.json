@@ -2,7 +2,7 @@
   "name": "wordscount",
   "displayName": "Words Count",
   "description": "实时统计文档字数并显示在状态栏。(Count words in the document and display the result in the status bar.)",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "publisher": "leqijishu",
   "icon": "assets/images/icon.png",
   "author": {
